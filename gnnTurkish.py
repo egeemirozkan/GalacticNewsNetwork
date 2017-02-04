@@ -1,26 +1,8 @@
+from beacon import Beacon
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 import datetime
 import twitter
-
-
-def take_passwords():
-    file_ = open("passwords.config", "r")
-    passes = file_.read().split("\n")
-    file_.close()
-    return passes
-
-
-def twittfy(string_):
-    continue_ = True
-    strings = []
-    while continue_ == True:
-        first_string = string_[:130]
-        strings.append(first_string)
-        string_ = string_[130:]
-        if string_ == '':
-            continue_ = False
-    return strings, len(strings)
 
 
 def page_creator():
@@ -78,7 +60,7 @@ for i in range(len(news_)):
 continue_ = True
 newsFinal = parseNews(["Gündem", "Ekonomi", "Hürriyet Arşiv", "Ankara", "Ege",
                        "{}.{}.{}".format(day_, month_, year_)], news)
-passwords = take_passwords()
+passwords = Beacon.take_passwords("passwords.config")
 connection = twitter.Api(consumer_key=passwords[0],
                   consumer_secret=passwords[1],
                   access_token_key=passwords[2],
@@ -90,7 +72,7 @@ while turn < 10:
         if len(newsFinal[i]) <= 130:
             connection.PostUpdate(newsFinal[i])
         else:
-            newProgress, countMessage = twittfy(newsFinal[i])
+            newProgress, countMessage = Beacon.twittfy(newsFinal[i])
             for j in range(countMessage):
                 connection.PostUpdate(newProgress[-(j+1)] + " [{}/{}]".format(
                                      str(countMessage - j), str(countMessage)))
