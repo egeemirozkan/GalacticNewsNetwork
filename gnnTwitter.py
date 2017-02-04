@@ -15,9 +15,9 @@ def twittfy(string_):
     continue_ = True
     strings = []
     while continue_ == True:
-        first_string = string_[130:]
+        first_string = string_[:130]
         strings.append(first_string)
-        string_ = string_[:130]
+        string_ = string_[130:]
         if string_ == '':
             continue_ = False
     return strings, len(strings)
@@ -74,7 +74,7 @@ newsFinal = parseNews(["Armed conflicts and attacks", "", " ",
                        "Politics and elections", "Sport",
                        "Science and technology", "Business and economy",
                        "Health and environment", "wiev", "view", "history",
-                       "edit", "watch", "Religion", "politics"], news)
+                       "edit", "watch", "Religion", "Politics"], news)
 passwords = take_passwords()
 connection = twitter.Api(consumer_key=passwords[0],
                   consumer_secret=passwords[1],
@@ -84,9 +84,9 @@ connection = twitter.Api(consumer_key=passwords[0],
 for i in range(len(newsFinal)):
     if len(newsFinal[i]) <= 140:
         connection.PostUpdate(newsFinal[i])
-#    else:
-#        newProgress, countMessage = twittfy(newsFinal[i])
-#        for j in range(countMessage):
-#            connection.PostUpdate(newProgress[j] + " [{}/{}]".format(
-#                                 str(j), str(countMessage)))
+    else:
+        newProgress, countMessage = twittfy(newsFinal[i])
+        for j in range(countMessage):
+            connection.PostUpdate(newProgress[-(j+1)] + " [{}/{}]".format(
+                                 str(countMessage - j), str(countMessage)))
 print("Transmission completed...")
