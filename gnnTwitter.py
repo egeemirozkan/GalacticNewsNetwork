@@ -11,9 +11,21 @@ def take_passwords():
     return passes
 
 
+def twittfy(string_):
+    continue_ = True
+    strings = []
+    while continue_ == True:
+        first_string = string_[130:]
+        strings.append(first_string)
+        string_ = string_[:130]
+        if string_ == '':
+            continue_ = False
+    return strings, len(strings)
+
+
 def page_creator():
     today = datetime.datetime.today()
-    fouryears = datetime.timedelta(days=1460)
+    fouryears = datetime.timedelta(days=1555)
     centruziedTime = today - fouryears
     year = centruziedTime.year
     month = centruziedTime.month
@@ -62,15 +74,19 @@ newsFinal = parseNews(["Armed conflicts and attacks", "", " ",
                        "Politics and elections", "Sport",
                        "Science and technology", "Business and economy",
                        "Health and environment", "wiev", "view", "history",
-                       "edit", "Religion"], news)
+                       "edit", "watch", "Religion", "politics"], news)
 passwords = take_passwords()
 connection = twitter.Api(consumer_key=passwords[0],
                   consumer_secret=passwords[1],
                   access_token_key=passwords[2],
                   access_token_secret=passwords[3],
                   sleep_on_rate_limit=True)
-connection.PostUpdate('News from Earth: {} {}, {}'.format(month_, day_, year_))
 for i in range(len(newsFinal)):
     if len(newsFinal[i]) <= 140:
         connection.PostUpdate(newsFinal[i])
+#    else:
+#        newProgress, countMessage = twittfy(newsFinal[i])
+#        for j in range(countMessage):
+#            connection.PostUpdate(newProgress[j] + " [{}/{}]".format(
+#                                 str(j), str(countMessage)))
 print("Transmission completed...")
