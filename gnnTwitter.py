@@ -63,12 +63,5 @@ connection = twitter.Api(consumer_key=passwords[0],
                   access_token_key=passwords[2],
                   access_token_secret=passwords[3],
                   sleep_on_rate_limit=True)
-for i in range(len(newsFinal)):
-    if len(newsFinal[i]) <= 140:
-        connection.PostUpdate(newsFinal[i])
-    else:
-        newProgress, countMessage = Beacon.twittfy(newsFinal[i])
-        for j in range(countMessage):
-            connection.PostUpdate(newProgress[-(j+1)] + " [{}/{}]".format(
-                                 str(countMessage - j), str(countMessage)))
+Beacon.post_tweet(newsFinal, 140)
 print("Transmission completed...")
