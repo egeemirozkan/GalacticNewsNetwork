@@ -60,15 +60,9 @@ for i in range(len(news_)):
 continue_ = True
 newsFinal = parseNews(["Gündem", "Ekonomi", "Hürriyet Arşiv", "Ankara", "Ege",
                        "{}.{}.{}".format(day_, month_, year_)], news)
-passwords = Beacon.take_passwords("passwords.config")
-connection = twitter.Api(consumer_key=passwords[0],
-                  consumer_secret=passwords[1],
-                  access_token_key=passwords[2],
-                  access_token_secret=passwords[3],
-                  sleep_on_rate_limit=True)
 turn = 0
 while turn < 10:
-    Beacon.post_tweet(newsFinal, 130)
+    Beacon.post_tweet(newsFinal, 130, 'passwords.config')
     turn += 1
 connection.PostUpdate("Haberler, tarih: {}.{}.{}".format(day_, month_, year_))
 print("Transmission completed...")
