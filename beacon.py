@@ -16,3 +16,12 @@ class Beacon:
             if string_ == '':
                 continue_ = False
         return strings, len(strings)
+    def post_tweet(News, CharLimit):
+        for i in range(len(newsFinal)):
+            if len(News[i]) <= CharLimit:
+                connection.PostUpdate(News[i])
+            else:
+                newProgress, countMessage = self.twittfy(News[i])
+                for j in range(countMessage):
+                    connection.PostUpdate(newProgress[-(j+1)] + " [{}/{}]".format(
+                                         str(countMessage - j), str(countMessage)))

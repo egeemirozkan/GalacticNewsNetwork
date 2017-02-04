@@ -68,14 +68,7 @@ connection = twitter.Api(consumer_key=passwords[0],
                   sleep_on_rate_limit=True)
 turn = 0
 while turn < 10:
-    for i in range(len(newsFinal)):
-        if len(newsFinal[i]) <= 130:
-            connection.PostUpdate(newsFinal[i])
-        else:
-            newProgress, countMessage = Beacon.twittfy(newsFinal[i])
-            for j in range(countMessage):
-                connection.PostUpdate(newProgress[-(j+1)] + " [{}/{}]".format(
-                                     str(countMessage - j), str(countMessage)))
+    Beacon.post_tweet(newsFinal, 130)
     turn += 1
 connection.PostUpdate("Haberler, tarih: {}.{}.{}".format(day_, month_, year_))
 print("Transmission completed...")
