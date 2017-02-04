@@ -57,11 +57,5 @@ newsFinal = parseNews(["Armed conflicts and attacks", "", " ",
                        "Science and technology", "Business and economy",
                        "Health and environment", "wiev", "view", "history",
                        "edit", "watch", "Religion", "Politics"], news)
-passwords = Beacon.take_passwords()
-connection = twitter.Api(consumer_key=passwords[0],
-                  consumer_secret=passwords[1],
-                  access_token_key=passwords[2],
-                  access_token_secret=passwords[3],
-                  sleep_on_rate_limit=True)
-Beacon.post_tweet(newsFinal, 140)
+Beacon.post_tweet(newsFinal, 140, 'passwords.txt')
 print("Transmission completed...")
