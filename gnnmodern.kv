@@ -1,21 +1,9 @@
 #:kivy 1.9.0
+#:import Beacon beacon.Beacon
 <StartScreen>:
-  PageLayout:
-    FloatLayout:
-      AnchorLayout:
-        anchor_x: 'center'
-        anchor_y: 'bottom'
-        Label:
-          text:'Alpha Centauri is roughly 4 light years away from us Earthlings. This means any news we make will reach them four years late, so, how would it looked like then? \n swipe the page if you want to learn"'
-          text_size: self.size
-          font_size:'14sp'
-          size: 2,2
-      AnchorLayout:
-        anchor_x: 'center'
-        anchor_y: 'top'
-        Label:
-          text:'Galactic News Network'
-          font_size:'20sp'
-          size: 1,1
-    Button:
-      text:
+  Label:
+    text: Beacon.fetch_tweet()
+    text_size: root.width, None
+    size: self.texture_size
+    valign: 'middle'
+    color: (0.5, 0.5, 0.5, 1)

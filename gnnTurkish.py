@@ -64,5 +64,5 @@ turn = 0
 while turn < 10:
     Beacon.post_tweet(newsFinal, 130, 'passwords.config')
     turn += 1
-connection.PostUpdate("Haberler, tarih: {}.{}.{}".format(day_, month_, year_))
+Beacon.post_tweet(["Haberler, tarih: {}.{}.{}".format(day_, month_, year_)], 130, 'passwords.config')
 print("Transmission completed...")

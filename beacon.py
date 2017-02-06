@@ -1,5 +1,6 @@
 import twitter
-
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
 
 class Beacon:
     def take_passwords(string_):
@@ -20,17 +21,27 @@ class Beacon:
                 continue_ = False
         return strings, len(strings)
     def post_tweet(News, CharLimit, PasswordFile):
-        passwords = self.take_passwords(PasswordFile)
+        passwords = Beacon.take_passwords(PasswordFile)
         connection = twitter.Api(consumer_key=passwords[0],
                           consumer_secret=passwords[1],
                           access_token_key=passwords[2],
                           access_token_secret=passwords[3],
                           sleep_on_rate_limit=True)
-        for i in range(len(newsFinal)):
+        for i in range(len(News)):
             if len(News[i]) <= CharLimit:
-                connection.PostUpdate(News[i])
+                try:
+                    connection.PostUpdate(News[i])
+                except:
+                    pass
             else:
-                newProgress, countMessage = self.twittfy(News[i])
+                newProgress, countMessage = Beacon.twittfy(News[i])
                 for j in range(countMessage):
                     connection.PostUpdate(newProgress[-(j+1)] + " [{}/{}]".format(
                                          str(countMessage - j), str(countMessage)))
+
+    def fetch_tweet():
+        page_ = urlopen("https://twitter.com/gnn_alphacenta")
+        pageData_ = page_.read()
+        page = BeautifulSoup(pageData_, "html.parser")
+        new = page.find("div", class_ = "js-tweet-text-container").get_text()
+        return new
