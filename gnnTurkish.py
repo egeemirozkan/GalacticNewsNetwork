@@ -7,7 +7,7 @@ import twitter
 
 def page_creator():
     today = datetime.datetime.today()
-    fouryears = datetime.timedelta(days=1555)
+    fouryears = datetime.timedelta(days=1554)
     centruziedTime = today - fouryears
     year = centruziedTime.year
     month = centruziedTime.month
@@ -61,8 +61,6 @@ continue_ = True
 newsFinal = parseNews(["Gündem", "Ekonomi", "Hürriyet Arşiv", "Ankara", "Ege",
                        "{}.{}.{}".format(day_, month_, year_)], news)
 turn = 0
-while turn < 10:
-    Beacon.post_tweet(newsFinal, 130, 'passwords.config')
-    turn += 1
-Beacon.post_tweet(["Haberler, tarih: {}.{}.{}".format(day_, month_, year_)], 130, 'passwords.config')
+Beacon.post_tweet(newsFinal, 130, 'passwords.config', True, day_, month_, year_)
+turn += 1
 print("Transmission completed...")
