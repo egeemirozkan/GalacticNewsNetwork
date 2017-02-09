@@ -56,3 +56,5 @@ class Beacon:
         page = BeautifulSoup(pageData_, "html.parser")
         new = page.find("div", class_ = "js-tweet-text-container").get_text()
         return new
+
+# egeemirozkan.com | Ege Emir Özkan
