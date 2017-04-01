@@ -51,7 +51,7 @@ day_, month_, year_, pagelink, dayreal, monthreal = page_creator()
 page_ = urlopen(pagelink)
 pageData_ = page_.read()
 page = BeautifulSoup(pageData_, "html.parser")
-news_ = page.find("div", class_="news-section").findChildren('div', class_ = "news")
+news_ = page.find("div", class_="news-loop").findChildren('div', class_ = "news")
 news = []
 for i in range(len(news_)):
     news.append(news_[i].get_text())
